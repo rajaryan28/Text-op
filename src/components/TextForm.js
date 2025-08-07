@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import translate from "translate";
 
 export default function TextForm(props) {
   
@@ -27,6 +27,17 @@ export default function TextForm(props) {
 
   function handleclearClick(){
     setText("")
+  }
+
+  async function handleTranslate() {
+    const lang = prompt("Enter target language code (e.g., 'hi' for Hindi, 'fr' for French):");
+    if (!lang) return;
+    try {
+      const translated = await translate(text, { to: lang });
+      setText(translated);
+    } catch (error) {
+      alert("Translation failed. Please check the language code or your internet connection.");
+    }
   }
 
   //function to remove spaces from the array: text
@@ -63,6 +74,7 @@ export default function TextForm(props) {
      <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 `} onClick={removeExtSpace}>Remove Extra Space</button>
      <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 mx-2`} onClick={handleCopy}>Copy</button>
      <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 mx-2`} onClick={handleclearClick}>Clear</button>
+     <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 mx-2`} onClick={handleTranslate}>Translate</button>
      </div>
      
 
