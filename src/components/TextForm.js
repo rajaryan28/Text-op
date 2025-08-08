@@ -40,6 +40,25 @@ export default function TextForm(props) {
     }
   }
 
+  function handleArrange() {
+    // Extract numbers from the text
+    const numbers = text.match(/-?\d+(\.\d+)?/g);
+    if (!numbers) {
+      alert("No numbers found to arrange.");
+      return;
+    }
+    // Ask user for order
+    const order = prompt("Enter 'asc' for ascending or 'desc' for descending order:", "asc");
+    if (!order) return;
+    let sorted;
+    if (order.toLowerCase() === "desc") {
+      sorted = numbers.map(Number).sort((a, b) => b - a);
+    } else {
+      sorted = numbers.map(Number).sort((a, b) => a - b);
+    }
+    setText(sorted.join(" "));
+  }
+
   //function to remove spaces from the array: text
   function removeItemAll(arr, value) {
     var i = 0;
@@ -72,9 +91,10 @@ export default function TextForm(props) {
      <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 mx-2`} onClick={handleupClick}>🔼TO UPPERCASE</button>
      <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 mx-2`} onClick={handlelowClick}>🔽to lowercase</button>
      <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 `} onClick={removeExtSpace}>Remove Extra Space</button>
+     <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 mx-2`} onClick={handleTranslate}>Translate</button>
+     <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 mx-2`} onClick={handleArrange}>Arrange</button>
      <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 mx-2`} onClick={handleCopy}>Copy</button>
      <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 mx-2`} onClick={handleclearClick}>Clear</button>
-     <button type="button" className={`btn btn-primary ${props.mode==='dark'? 'btn-dark':''} my-2 mx-2`} onClick={handleTranslate}>Translate</button>
      </div>
      
 
